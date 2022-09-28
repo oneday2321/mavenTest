@@ -32,21 +32,34 @@ public class Book {
             "    ],\n" +
             "    \"bicycle\": {\n" +
             "      \"color\": \"red\",\n" +
+            "      \"title\": \"外面的title\",\n" +
             "      \"price\": 19.95\n" +
             "    }\n" +
             "  }\n" +
             "}";
 
     public static void main(String[] args) {
-//        System.out.println(json);
-//        Object read = JsonPath.read(json, "@..title");
+//        获取所有title值
         List<String> read1 = JsonPath.read(json, "@..title");
-        System.out.println(read1);
-
+        System.out.println(read1.get(1));
+//        获取book中的所有title值
         List<String> read2  = JsonPath.read(json, "@..book[*].title");
         System.out.println(read2);
+//        获取book中所有isbn的所有值
+        List<Book> read3  = JsonPath.read(json, "@..book[?(@.isbn)]");
+        System.out.println(read3.get(1));
+//        获取book中不包含isbn的所有值
+        List<Book> read4  = JsonPath.read(json, "@..book[?(!@.isbn)]");
+        System.out.println(read4);
+//        获取book中price的值小于10的
+        List<Double> read5= JsonPath.read(json, "@..book[?(@.price < 10)].price");
+        System.out.println(read5);
+//        获取book中title是 ' The Lord of the Rings ' 的对象
+        List<Book> titles = JsonPath.read(json, "$..book[?(@.title == 'The Lord of the Rings')]");
+        System.out.println(titles);
+//        获取book中的个数
+        int read= JsonPath.read(json, "$.store.book.size()");
+        System.out.println(read);
 
-        List<String> read3  = JsonPath.read(json, "@..book[?(@.isbn)]");
-        System.out.println(read3);
     }
 }
