@@ -10,7 +10,7 @@ public class ReadTestCaseExcel {
 
         InputStream in = null;
         File file = new File(excelPath);
-        InputStream inputStream = Files.newInputStream(file.toPath());
+//        InputStream inputStream = Files.newInputStream(file.toPath());
 //        https://www.cnblogs.com/uncleyong/p/15867741.html
     }
 }
