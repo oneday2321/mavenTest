@@ -111,17 +111,19 @@ public class TestCaseData {
     }
     @Override
     public String toString(){
-        return "TestCase{\"caseId=\"+ CaseId," +
-                "\"ApiName=\" + ApiName," +
-                "\"Describe=\" + Describe," +
-                "\"Url=\" + Url," +
-                "\"RequestType=\" + RequestType, " +
-                "\"Headers=\" + Headers," +
-                "\"Cookies=\" + Cookies," +
-                "\"Parameters=\" + Parameters," +
-                "\"UploadFile=\" +UploadFile," +
-                "\"InitSql=\"+InitSql," +
-                "\"GlobalVariables=\"+GlobalVariables," +
-                "\"AssertFields=\"+AssertFields}";
+        return "CaseData{" +
+                "caseId='" + CaseId + '\'' +
+                ", apiName='" + ApiName + '\'' +
+                ", describe='" + Describe + '\'' +
+                ", url='" + Url + '\'' +
+                ", requestType='" + RequestType + '\'' +
+                ", headers='" + Headers + '\'' +
+                ", cookies='" + Cookies + '\'' +
+                ", parameters='" + Parameters + '\'' +
+                ", uploadFile='" + UploadFile + '\'' +
+                ", initSql='" + InitSql + '\'' +
+                ", globalVariables='" + GlobalVariables + '\'' +
+                ", assertFields='" + AssertFields + '\'' +
+                '}';
     }
 }

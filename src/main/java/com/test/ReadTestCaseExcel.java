@@ -1,16 +1,54 @@
 package com.test;
 
-import java.io.*;
+import org.apache.poi.ss.usermodel.*;
+
+import java.io.File;
+import java.io.FileInputStream;
+
+import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
 
 public class ReadTestCaseExcel {
-    public static void main(String[] args) throws IOException {
-        String excelPath = "E:\\javaCode\\mavenTest\\DataTest\\caseData.xlsx";
-        String fileSheetName = "Sheet1";
-
+    static String excelPath = "E:\\javaCode\\mavenTest\\DataTest\\caseData.xlsx";
+    static String sheetName = "Sheet1";
+    public static void main(String[] args){
         InputStream in = null;
-        File file = new File(excelPath);
-//        InputStream inputStream = Files.newInputStream(file.toPath());
-//        https://www.cnblogs.com/uncleyong/p/15867741.html
+        try {
+            File file = new File(excelPath);
+            in = Files.newInputStream(file.toPath());
+            Workbook workbook = WorkbookFactory.create(in);
+            Sheet sheet = workbook.getSheet(sheetName);
+            Row firstRow = sheet.getRow(0);
+            int lastCellNum = firstRow.getLastCellNum();
+            String[] titles = new String[lastCellNum];
+            for (int i = 0; i < lastCellNum; i++) {
+                Cell cell = firstRow.getCell(i);
+                String title = cell.getStringCellValue();
+                titles[i] = title;
+            }
+            int lastRowNum = sheet.getLastRowNum();
+            for (int i = 1; i <= lastRowNum  ; i++) {
+                Row rowData = sheet.getRow(i);
+                System.out.print("第"+i+"行数据：");
+                for (int j = 0; j < lastCellNum ; j++) {
+                    Cell cell = rowData.getCell(j);
+                    String cellValue = cell.getStringCellValue();
+                    // 打印获取到的值
+                    System.out.print("【"+ titles[j] + "="+ cellValue+"】");
+                }
+                System.out.println();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (in != null){
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
