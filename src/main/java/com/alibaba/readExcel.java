@@ -11,12 +11,13 @@ import java.util.Objects;
 public class readExcel {
     public static void main(String[] args) {
         String file = "E:\\javaCode\\mavenTest\\DataTest\\Data.xlsx";
-        testRead(file);
+        String sheetName = "用户信息";
+        testRead(file,sheetName);
     }
-    public static void testRead(String file){
-        List<Objects> list = EasyExcel.read(file, excelZhu.class, new zhuList()).sheet("用户信息").doReadSync();
-        for (int i = 0; i < list.size(); i++) {
-            String s = JSON.toJSONString(list.get(i));
+    public static void testRead(String file,String sheetName){
+        List<Objects> list = EasyExcel.read(file, excelZhu.class, new zhuList()).sheet(sheetName).doReadSync();
+        for (Objects objects : list) {
+            String s = JSON.toJSONString(objects);
             JSONObject jsonObject = JSONObject.parseObject(s);
             List<String> read = JsonPath.read(jsonObject, "@..name");
             System.out.println(read.get(0));
