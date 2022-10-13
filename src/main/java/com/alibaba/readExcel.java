@@ -15,12 +15,13 @@ public class readExcel {
         testRead(file,sheetName);
     }
     public static void testRead(String file,String sheetName){
-        List<Objects> list = EasyExcel.read(file, excelZhu.class, new zhuList()).sheet(sheetName).doReadSync();
-        for (Objects objects : list) {
-            String s = JSON.toJSONString(objects);
-            JSONObject jsonObject = JSONObject.parseObject(s);
-            List<String> read = JsonPath.read(jsonObject, "@..name");
-            System.out.println(read.get(0));
-        }
+        List<excelZhu> list = EasyExcel.read(file, excelZhu.class, new zhuList()).sheet(sheetName).doReadSync();
+//        for (excelZhu zhu : list) {
+//            String s = JSON.toJSONString(zhu);
+//            JSONObject jsonObject = JSONObject.parseObject(s);
+//            List<String> read = JsonPath.read(jsonObject, "@..name");
+//            System.out.println(read.get(0));
+//        }
+        System.out.println(list.get(0));
     }
 }
