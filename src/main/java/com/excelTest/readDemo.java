@@ -1,6 +1,7 @@
 package com.excelTest;
 
 import com.alibaba.excel.EasyExcel;
+
 import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -16,21 +17,22 @@ public class readDemo {
         System.out.println(Arrays.toString(strings));
 
     }
-    public static List<excelDemo> read(String fileName, String sheetName){
+
+    public static List<excelDemo> read(String fileName, String sheetName) {
         /*
-        * @Description 进行excel文件的读取操作，并将读取到的内容对象存储至一个list集合中
-        * @Params  文件名称、sheet页名称
-        * @Return 返回集合list
-        */
-        return EasyExcel.read(fileName, excelDemo.class,new listenerDemo()).sheet(sheetName).doReadSync();
+         * @Description 进行excel文件的读取操作，并将读取到的内容对象存储至一个list集合中
+         * @Params  文件名称、sheet页名称
+         * @Return 返回集合list
+         */
+        return EasyExcel.read(fileName, excelDemo.class, new listenerDemo()).sheet(sheetName).doReadSync();
     }
 
-    public static HashMap<Integer, excelDemo> mapExcelCreate(String fileName, String sheetName){
+    public static HashMap<Integer, excelDemo> mapExcelCreate(String fileName, String sheetName) {
         /*
-        * @Description 将excel对象集合存放至一个map中
-        * @Params  文件名称、sheet页名称
-        * @Return 返回map， 序号，excelDemo对象
-        */
+         * @Description 将excel对象集合存放至一个map中
+         * @Params  文件名称、sheet页名称
+         * @Return 返回map， 序号，excelDemo对象
+         */
         List<excelDemo> read = read(fileName, sheetName);
         HashMap<Integer, excelDemo> map = new HashMap<>();
         for (int i = 0; i < read.size(); i++) {
@@ -40,8 +42,8 @@ public class readDemo {
     }
 
 
-    public static void test1(String fileName, String sheetName)  {
-        HashMap<Integer, excelDemo> map = mapExcelCreate( fileName,sheetName);
+    public static void test1(String fileName, String sheetName) {
+        HashMap<Integer, excelDemo> map = mapExcelCreate(fileName, sheetName);
 //        获取map中的一个对象，反射获取对象中所有属性
         excelDemo excelDemo = map.get(1);
         Field[] fields = excelDemo.getClass().getDeclaredFields();
@@ -50,7 +52,7 @@ public class readDemo {
             for (Field field : fields) {
                 field.setAccessible(true);
                 String name = field.getName();
-                String o = (String)field.get(excelDemo);
+                String o = (String) field.get(excelDemo);
                 if (o != null) {
                     System.out.println(name + " == " + o);
                 } else {
@@ -63,19 +65,18 @@ public class readDemo {
     }
 
 
-//    获取返回集合，根据集合中对象获取其对应的变量值，以及对应的属性值
-    public static String[][] test2(List<excelDemo> read ){
+    //    获取返回集合，根据集合中对象获取其对应的变量值，以及对应的属性值
+    public static String[][] test2(List<excelDemo> read) {
         int size = read.size();
-        String[][] arr;
-        arr = new String[size][];
+        String[][] arr = new String[size][];
         for (int i = 0; i < size; i++) {
             excelDemo demo = read.get(i);
             Field[] fields = demo.getClass().getDeclaredFields();
-            try{
+            try {
                 for (int j = 0; j < fields.length; j++) {
                     Field field = fields[j];
                     field.setAccessible(true);
-                    String o = (String)field.get(demo);
+                    String o = (String) field.get(demo);
                     System.out.println(o);
                     if (o != null) {
                         arr[i][j] = o;
