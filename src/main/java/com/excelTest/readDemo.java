@@ -13,7 +13,6 @@ public class readDemo {
         String fileName = ".//DataTest//caseData.xlsx";
         String sheetName = "Sheet1";
 
-//        test1(fileName,sheetName);
         String[][] strings = test2(read(fileName, sheetName));
         System.out.println(Arrays.deepToString(strings));
 
